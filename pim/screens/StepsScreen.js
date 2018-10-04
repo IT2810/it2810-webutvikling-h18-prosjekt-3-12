@@ -7,7 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Alert
+  Alert,
+  RefreshControl
 } from "react-native";
 import { MonoText } from "../components/StyledText";
 import { Pedometer, Icon } from "expo";
@@ -20,7 +21,8 @@ export default class HomeScreen extends React.Component {
   state = {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
-    currentStepCount: 0
+    currentStepCount: 0,
+      refreshing: false
   };
 
   componentDidMount() {
@@ -51,6 +53,8 @@ export default class HomeScreen extends React.Component {
       }
     );
 
+
+
     const end = new Date();
     const start = new Date();
     start.setDate(end.getDate() - 1); //24h difference
@@ -80,6 +84,10 @@ export default class HomeScreen extends React.Component {
       : distance.toFixed(0) + " m";
   };
 
+    _onRefresh = () => {
+        //Think we need refresh functionality here.
+    }
+
   //popup for information about the step counter
   handleInfoIconPress = () => {
     Alert.alert(
@@ -106,6 +114,12 @@ export default class HomeScreen extends React.Component {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
+          refreshControl={//This adds pull-to-refresh on Android. Functionality in _onRefresh
+              <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+              />
+          }
         >
           <View style={styles.stepsContainer}>
             <View

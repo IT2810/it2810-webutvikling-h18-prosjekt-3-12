@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Goal from '.Goal'
+import { Goal } from "./Goal"
 import {
     Image,
     Platform,
@@ -12,18 +12,19 @@ import {
   } from "react-native";
 
 
-class GoalList extends Component {
+export class GoalList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collection : []
+            collection_of_goals : props.collection_of_goals
           }
     }
     render() { 
         return ( 
         <View>
-            <ScrollView style={styles.container}>
-                
+            <ScrollView>
+                {this.state.collection_of_goals.map(g =>
+                 <Goal key={g.id} name={g.name} date ={g.date} description={g.description}/>)}
             </ScrollView>
         </View>
          );
@@ -32,4 +33,3 @@ class GoalList extends Component {
 
 }
  
-export default Goal;

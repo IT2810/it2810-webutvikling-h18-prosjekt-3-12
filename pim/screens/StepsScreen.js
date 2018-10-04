@@ -1,13 +1,13 @@
 import React from "react";
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Alert
+  Alert,
+  RefreshControl
 } from "react-native";
 import { MonoText } from "../components/StyledText";
 import { Pedometer, Icon } from "expo";
@@ -20,7 +20,8 @@ export default class HomeScreen extends React.Component {
   state = {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
-    currentStepCount: 0
+    currentStepCount: 0,
+    refreshing: false
   };
 
   componentDidMount() {
@@ -83,8 +84,8 @@ export default class HomeScreen extends React.Component {
   //popup for information about the step counter
   handleInfoIconPress = () => {
     Alert.alert(
-      "Information",
-      "Walk with the phone and this number will increase.",
+      "Steps Information",
+      "- Walk with the phone and watch this number increase. \n\n- Drag the screen down to refresh the data.",
       [{ text: "OK" }],
       { cancelable: false }
     );
@@ -99,6 +100,14 @@ export default class HomeScreen extends React.Component {
     return formatedDate;
   };
 
+  //refreshes the data and updates the view
+  _onRefresh = () => {
+    this.setState({ refreshing: true, currentStepCount: 0 });
+    this._unsubscribe(); //reset currentStepCount subscription
+    this._subscribe();
+    this.setState({ refreshing: false });
+  };
+
   //TODO: move inline css to styles
   render() {
     return (
@@ -106,6 +115,12 @@ export default class HomeScreen extends React.Component {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
         >
           <View style={styles.stepsContainer}>
             <View

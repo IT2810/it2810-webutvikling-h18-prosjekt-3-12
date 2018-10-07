@@ -10,7 +10,7 @@ import {
   Platform,
   FlatList,
   List,
-  ListItem
+  ListItem,
 } from "react-native";
 import { Icon } from "expo";
 import { storeData, fetchData } from "../asyncstorage";
@@ -22,6 +22,7 @@ export default class LinksScreen extends React.Component {
   };
   state = {
     inputValue: "",
+    currentIndex : 0,
     goals: []
   };
 
@@ -30,26 +31,26 @@ export default class LinksScreen extends React.Component {
       AsyncStorage.multiGet(keys).then(result => {
         result.map(element =>
           this.setState({
-            goals: [...this.state.goals, ...[[element[0], element[1]]]] //using E6 spread syntax
+            goals: [...this.state.goals, ...[[element[0], element[1]]]], //using E6 spread syntax
+            currentIndex: this.state.goals[this.state.goals.length-1][0] //Get the last used index
           })
         );
       })
     );
   }
 
-  //prompts user with waring if goal is empty, if not => calls addGoal
-  handleAddPress = () => {
-    if (this.state.inputValue === "") {
-      Alert.alert(
-        "Warning",
-        "Cannot add a empty goal. Please write a goal.",
-        [{ text: "OK" }],
-        { cancelable: false }
-      );
-    } else {
-      this.addGoal();
-    }
-  };
+  FlatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#607D8B",
+        }}
+      />
+    );
+  }; //muligens ikke ;
+
 
   //create a unique key for element to be stored in the asyncstorage
   createUniqueStoreKey = () => {
@@ -59,17 +60,16 @@ export default class LinksScreen extends React.Component {
   };
 
   // stores the inputvalue to asyncstorage and clears the textinput
-  addGoal = () => {
-    const key = this.createUniqueStoreKey();
-    storeData(key, this.state.inputValue);
-    //BUG: works first time, then it does not!!!
-    this.textInput.clear();
-    if (Platform.OS === "ios") {
-      this.textInput.setNativeProps({ text: " " });
-    }
+  addGoal = (name, description ) => {
     this.setState({
-      inputValue: "",
-      goals: [...this.state.goals, ...[[key, this.state.inputValue]]]
+      currentIndex : currentIndex + 1
+    })
+    const key = String(this.state.currentIndex);
+    date = new Date()
+    storeData(key, name, description, date);
+    //BUG: works first time, then it does not!!!
+    this.setState({
+      goals: [...this.state.goals, ...[[key, name, description, date]]]
     });
   };
 
@@ -93,28 +93,14 @@ export default class LinksScreen extends React.Component {
             />
           </View>
           <View style={styles.wrapperContainer}>
-            <View style={styles.goalswrapperContainer}>
-              {this.state.goals.map(g => (
-                <View style={styles.singleGoalContainer} key={g[0]}>
-                  <Text style={styles.goalText} key={g[1]}>
-                    {g[1]}
-                  </Text>
-                </View>
-              ))}
-            </View>
+            <FlatList
+            style = {styles.goalswrapperContainer}
+            data={this.state.goals}>
+            ItemSeparatorComponent = {this.FlatListItemSeparator}
+            renderItem={({goal}) => <Goal style={styles.goal}></Goal>}></FlatList>
             <View style={styles.addContainer}>
-              <TextInput
-                style={styles.inputField}
-                placeholder={"Add a goal..."}
-                maxLength={50}
-                onChangeText={value => this.setState({ inputValue: value })}
-                clearButtonMode="always"
-                ref={input => {
-                  this.textInput = input;
-                }}
-              />
-              <TouchableOpacity onPress={this.handleAddPress}>
-                <Text style={styles.addText}>+</Text>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('NewGoal')}>
+                <Text style={styles.addText}>Add new goal</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -15,14 +15,15 @@ import {
 import { Icon } from "expo";
 import { storeData, fetchData } from "../asyncstorage";
 import { AsyncStorage } from "react-native";
+import { createStackNavigator } from 'react-navigation';
 
 export default class NewGoalScreen extends React.Component {
   static navigationOptions = {
     title: "NewGoal"
   };
   state = {
-    inputName = "",
-    inputDescription = ""
+    inputName : "",
+    inputDescription : ""
   };
 
   handleOkPress = () =>{ //Check if input is not empty -> addGoal
@@ -61,7 +62,7 @@ export default class NewGoalScreen extends React.Component {
           <View
             style={{
               flex: 1,
-              flexDirection: "row",
+              flexDirection: "column",
               paddingBottom: 10,
               paddingTop: 15
             }}
@@ -162,9 +163,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default createStackNavigator({
-    NewGoal: {
-      screen: NewGoalScreen
-    },
-  });
+
 

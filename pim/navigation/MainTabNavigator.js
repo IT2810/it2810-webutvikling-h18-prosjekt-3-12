@@ -9,9 +9,11 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/StepsScreen";
 import LinksScreen from "../screens/GoalsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import NewGoalScreen from "../screens/NewGoalScreen"
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
+
 });
 
 HomeStack.navigationOptions = {
@@ -29,7 +31,8 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  Links: LinksScreen
+  Links: LinksScreen,
+  NewGoal: NewGoalScreen
 });
 
 LinksStack.navigationOptions = {
@@ -67,5 +70,8 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
-  SettingsStack
+  SettingsStack,
 });
+
+
+

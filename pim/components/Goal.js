@@ -13,13 +13,32 @@ import {
 export class Goal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    state = {
+      index: this.props.index,
+      name: this.props.name,
       text: this.props.text,
-      date: Date(),
-      index: props.id,
-      name: this.props.name
+      date: this.props.date,
     };
   }
+
+  constructor(index, name, text, date){
+    state = {
+      index: index,
+      name:name,
+      text:text,
+      date:date,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // update original states
+    this.setState({
+      index: nextProps.props.index,
+      name: nextProps.props.name,
+      text: nextProps.props.text,
+      date: nextProps.props.date,
+    });
+}
 
 
   //popup for information about the goal's description
@@ -44,7 +63,12 @@ export class Goal extends React.Component {
         </TouchableOpacity>
       </View>
     );
-  }
+  };
+ 
+
+
+
+
 }
 
 const styles = StyleSheet.create({});

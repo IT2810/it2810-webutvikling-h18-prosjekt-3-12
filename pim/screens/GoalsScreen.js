@@ -12,9 +12,11 @@ import {
   List,
   ListItem,
 } from "react-native";
+import Goal from "../components/Goal"
 import { Icon } from "expo";
 import { storeData, fetchData } from "../asyncstorage";
 import { AsyncStorage } from "react-native";
+import { createStackNavigator } from 'react-navigation';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
@@ -23,7 +25,7 @@ export default class LinksScreen extends React.Component {
   state = {
     inputValue: "",
     currentIndex : 0,
-    goals: []
+    goals: [["1","name","Description","11"]]
   };
 
   componentWillMount() {
@@ -31,8 +33,8 @@ export default class LinksScreen extends React.Component {
       AsyncStorage.multiGet(keys).then(result => {
         result.map(element =>
           this.setState({
-            goals: [...this.state.goals, ...[[element[0], element[1]]]], //using E6 spread syntax
-            currentIndex: this.state.goals[this.state.goals.length-1][0] //Get the last used index
+            goals: [...this.state.goals, ...[[element[0], element[1], element[2], element[3]]]], //using E6 spread syntax
+            currentIndex: parseInt(this.state.goals[this.state.goals.length-1][0]) //Get the last used index
           })
         );
       })
@@ -94,10 +96,19 @@ export default class LinksScreen extends React.Component {
           </View>
           <View style={styles.wrapperContainer}>
             <FlatList
-            style = {styles.goalswrapperContainer}
-            data={this.state.goals}>
-            ItemSeparatorComponent = {this.FlatListItemSeparator}
-            renderItem={({goal}) => <Goal style={styles.goal}></Goal>}></FlatList>
+              style = {styles.goalswrapperContainer}
+              data={this.state.goals}>
+              keyExtractor = {goal => goal[0]}
+              ItemSeparatorComponent = {this.FlatListItemSeparator}
+              renderItem={({goal, index}) => (
+
+                <Goal
+                  index = {goal[0]}
+                  name = {goal[1]}
+                  text = {goal[2]}
+                  date = {goal[3]}/>
+              )}/>
+            </FlatList>
             <View style={styles.addContainer}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('NewGoal')}>
                 <Text style={styles.addText}>Add new goal</Text>

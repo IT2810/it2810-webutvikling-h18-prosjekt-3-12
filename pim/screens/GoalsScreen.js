@@ -67,7 +67,7 @@ export default class LinksScreen extends React.Component {
       currentIndex : currentIndex + 1
     })
     const key = String(this.state.currentIndex);
-    date = new Date()
+    let date = new Date()
     storeData(key, name, description, date);
     //BUG: works first time, then it does not!!!
     this.setState({
@@ -97,17 +97,17 @@ export default class LinksScreen extends React.Component {
           <View style={styles.wrapperContainer}>
             <FlatList
               style = {styles.goalswrapperContainer}
-              data={this.state.goals}>
-              keyExtractor = {goal => goal[0]}
+              data={this.state.goals}
+              keyExtractor = {data => data[0]}
               ItemSeparatorComponent = {this.FlatListItemSeparator}
-              renderItem={({goal, index}) => (
+              renderItem={({item}) => (
 
                 <Goal
-                  index = {goal[0]}
-                  name = {goal[1]}
-                  text = {goal[2]}
-                  date = {goal[3]}/>
-              )}/>
+                  index = {item[0]}
+                  name = {item[1]}
+                  text = {item[2]}
+                  date = {item[3]}/>
+              )}>
             </FlatList>
             <View style={styles.addContainer}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('NewGoal')}>
@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   addText: {
-    borderRadius: 7,
     fontSize: 22,
     color: "white",
     lineHeight: 24,

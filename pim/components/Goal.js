@@ -9,11 +9,12 @@ import {
   View,
   Alert
 } from "react-native";
+import { Icon } from "expo";
 
-export class Goal extends React.Component {
+class Goal extends React.Component {
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       index: this.props.index,
       name: this.props.name,
       text: this.props.text,
@@ -21,14 +22,6 @@ export class Goal extends React.Component {
     };
   }
 
-  constructor(index, name, text, date){
-    state = {
-      index: index,
-      name:name,
-      text:text,
-      date:date,
-    };
-  }
 
   componentWillReceiveProps(nextProps) {
     // update original states
@@ -70,5 +63,7 @@ export class Goal extends React.Component {
 
 
 }
+
+export default Goal;
 
 const styles = StyleSheet.create({});

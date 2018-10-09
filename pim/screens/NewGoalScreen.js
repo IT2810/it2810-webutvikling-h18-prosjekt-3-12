@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   addText: {
-    borderRadius: 7,
     fontSize: 22,
     color: "white",
     lineHeight: 24,

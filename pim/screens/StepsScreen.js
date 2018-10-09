@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  Button,
   RefreshControl
 } from "react-native";
 import { MonoText } from "../components/StyledText";
@@ -100,12 +101,24 @@ export default class HomeScreen extends React.Component {
     return formatedDate;
   };
 
-  //refreshes the data and updates the view
-  _onRefresh = () => {
-    this.setState({ refreshing: true, currentStepCount: 0 });
+  //resets the data and updates the view
+  onResetData = () => {
+    this.setState({ currentStepCount: 0 });
     this._unsubscribe(); //reset currentStepCount subscription
     this._subscribe();
-    this.setState({ refreshing: false });
+  };
+
+  //handle button press and make user confirm the action
+  handleResetPress = () => {
+    Alert.alert(
+      "Reset Data",
+      "Do you want to reset the data?",
+      [
+        { text: "Yes", onPress: () => this.onResetData() },
+        { text: "Cancel", style: "cancel" }
+      ],
+      { cancelable: false }
+    );
   };
 
   //TODO: move inline css to styles
@@ -115,12 +128,6 @@ export default class HomeScreen extends React.Component {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh}
-            />
-          }
         >
           <View style={styles.stepsContainer}>
             <View
@@ -180,22 +187,13 @@ export default class HomeScreen extends React.Component {
                 {this.formatDate()}
               </Text>
             </View>
+            <View style={styles.resetContainer}>
+              <TouchableOpacity onPress={this.handleResetPress}>
+                <Text style={styles.resetText}>Reset data</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}
-          >
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -275,6 +273,21 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between"
+  },
+  resetContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 10
+  },
+  resetText: {
+    fontSize: 12,
+    color: "white",
+    lineHeight: 24,
+    backgroundColor: "#ff837c",
+    borderRadius: 7,
+    overflow: "hidden",
+    padding: 5
   },
   tabBarInfoContainer: {
     position: "absolute",

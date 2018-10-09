@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/StepsScreen";
-import LinksScreen from "../screens/GoalsScreen";
+import GoalsScreen from "../screens/GoalsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import NewGoalScreen from "../screens/NewGoalScreen"
 
@@ -31,7 +31,7 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+  Links: GoalsScreen,
   NewGoal: NewGoalScreen
 });
 

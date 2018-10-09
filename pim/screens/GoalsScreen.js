@@ -14,7 +14,7 @@ import { Icon } from "expo";
 import { storeData, fetchData } from "../asyncstorage";
 import { AsyncStorage } from "react-native";
 
-export default class LinksScreen extends React.Component {
+export default class GoalsScreen extends React.Component {
   static navigationOptions = {
     title: "Goals"
   };
@@ -23,6 +23,11 @@ export default class LinksScreen extends React.Component {
     currentIndex : 0,
     goals: [["1","name","Description","11"]]
   };
+
+
+  componentDidUpdate() {
+
+  }
 
   componentWillMount() {
     AsyncStorage.getAllKeys().then(keys =>

@@ -1,4 +1,5 @@
 import React from "react";
+import GoalsScreen from "../screens/GoalsScreen.js";
 import {
   ScrollView,
   StyleSheet,
@@ -43,7 +44,7 @@ export default class NewGoalScreen extends React.Component {
   };
 
   addGoal = () => { //Store new Goal with GoalsScreen addGoal method, and go back to GoalsScreen.
-    GoalsScreen.addGoal(this.state.inputName, this.state.inputDescription)
+    new GoalsScreen.addGoal(this.state.inputName, this.state.inputDescription)
     this.props.navigation.goBack()
   }
 
@@ -80,7 +81,7 @@ export default class NewGoalScreen extends React.Component {
             ref={input => {
                 this.textInput = input;
             }}/>
-            <TouchableOpacity onPress={this.handleOkPress()}>
+            <TouchableOpacity onPress={()=> this.handleOkPress()}>
                 <Text style={styles.addText}>Add new goal</Text>
             </TouchableOpacity>
 

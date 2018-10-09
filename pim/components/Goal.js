@@ -23,10 +23,10 @@ class Goal extends React.Component {
   componentWillReceiveProps(nextProps) {
     // update original states
     this.setState({
-      index: nextProps.props.index,
-      name: nextProps.props.name,
-      text: nextProps.props.text,
-      date: nextProps.props.date,
+      index: nextProps.index,
+      name: nextProps.name,
+      text: nextProps.text,
+      date: nextProps.date,
     });
 }
 

@@ -39,7 +39,6 @@ export default class LinksScreen extends React.Component {
         );
       })
     );
-    console.log(this.state.goals)
   }
 
   FlatListItemSeparator = () => {

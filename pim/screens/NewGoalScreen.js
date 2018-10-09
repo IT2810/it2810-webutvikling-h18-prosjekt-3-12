@@ -7,15 +7,9 @@ import {
   Text,
   TextInput,
   Alert,
-  Platform,
-  FlatList,
   List,
   ListItem,
 } from "react-native";
-import { Icon } from "expo";
-import { storeData, fetchData } from "../asyncstorage";
-import { AsyncStorage } from "react-native";
-import { createStackNavigator } from 'react-navigation';
 
 export default class NewGoalScreen extends React.Component {
   static navigationOptions = {

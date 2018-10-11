@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import Goal from "../components/Goal"
 import { Icon } from "expo";
-import { storeData, fetchData } from "../asyncstorage";
 import { AsyncStorage } from "react-native";
 
 export default class GoalsScreen extends React.Component {
@@ -19,23 +18,17 @@ export default class GoalsScreen extends React.Component {
     title: "Goals"
   };
   state = {
-    inputValue: "",
     currentIndex : 0,
-    goals: [["1","name","Description","11"]]
+    goals: []
   };
 
-
-  componentDidUpdate() {
-
-  }
 
   componentWillMount() {
     AsyncStorage.getAllKeys().then(keys =>
       AsyncStorage.multiGet(keys).then(result => {
         result.map(element =>
           this.setState({
-            goals: [...this.state.goals, ...[[element[0], element[1], element[2], element[3]]]], //using E6 spread syntax
-            currentIndex: parseInt(this.state.goals[this.state.goals.length-1][0]) //Get the last used index
+            goals: [...this.state.goals, ...[[element[0], element[1]]]], //using E6 spread syntax
           })
         );
       })
@@ -54,29 +47,8 @@ export default class GoalsScreen extends React.Component {
     );
   }; //muligens ikke ;
 
-
-  //create a unique key for element to be stored in the asyncstorage
-  createUniqueStoreKey = () => {
-    return String(
-      (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(-1)
-    );
-  };
-
-  // stores the inputvalue to asyncstorage and clears the textinput
-  addGoal = (name, description ) => {
-    this.setState({
-      currentIndex : currentIndex + 1
-    })
-    const key = String(this.state.currentIndex);
-    let date = new Date()
-    storeData(key, name, description, date);
-    //BUG: works first time, then it does not!!!
-    this.setState({
-      goals: [...this.state.goals, ...[[key, name, description, date]]]
-    });
-  };
-
   render() {
+    console.log(this.state.goals)
     return (
       <View style={styles.container}>
         <ScrollView style={styles.goalsContainer}>

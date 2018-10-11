@@ -20,6 +20,7 @@ class Goal extends React.Component {
   }
 
 
+  //DEPRECATED, REPLACE
   componentWillReceiveProps(nextProps) {
     // update original states
     this.setState({

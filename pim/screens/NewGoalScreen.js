@@ -1,16 +1,15 @@
 import React from "react";
-import GoalsScreen from "../screens/GoalsScreen.js";
 import {
-  ScrollView,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  Alert,
-  List,
-  ListItem,
+    ScrollView,
+    StyleSheet,
+    View,
+    TouchableOpacity,
+    Text,
+    TextInput,
+    Alert,
+
 } from "react-native";
+import {storeData} from "../asyncstorage";
 
 export default class NewGoalScreen extends React.Component {
   static navigationOptions = {
@@ -18,8 +17,15 @@ export default class NewGoalScreen extends React.Component {
   };
   state = {
     inputName : "",
-    inputDescription : ""
+    inputDescription : "",
+    inputValue: ""
   };
+
+    createUniqueStoreKey = () => {
+        return String(
+            (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(-1)
+        );
+    };
 
   handleOkPress = () =>{ //Check if input is not empty -> addGoal
     if (this.state.inputName === "") {
@@ -39,14 +45,20 @@ export default class NewGoalScreen extends React.Component {
         );
         }
     else{
+        this.setState({inputValue: JSON.stringify([this.state.inputName, this.state.inputDescription, new Date().toString()]) });
+        console.log(this.state.inputValue)
         this.addGoal();
     }
   };
 
-  addGoal = () => { //Store new Goal with GoalsScreen addGoal method, and go back to GoalsScreen.
-    new GoalsScreen.addGoal(this.state.inputName, this.state.inputDescription)
+    // stores the inputvalue to asyncstorage and clears the textinput
+    addGoal = () => {
+        const key = this.createUniqueStoreKey();
+        console.log(this.state.inputValue);
+        storeData(key, this.state.inputValue);
+        //BUG: works first time, then it does not!!!
     this.props.navigation.goBack()
-  }
+    }
 
  
 

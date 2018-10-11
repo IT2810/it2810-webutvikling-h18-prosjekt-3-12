@@ -7,9 +7,9 @@ import {
   Text,
   FlatList,
   List,
-  ListItem,
+  ListItem
 } from "react-native";
-import Goal from "../components/Goal"
+import Goal from "../components/Goal";
 import { Icon } from "expo";
 import { AsyncStorage } from "react-native";
 
@@ -18,22 +18,42 @@ export default class GoalsScreen extends React.Component {
     title: "Goals"
   };
   state = {
-    currentIndex : 0,
+    currentIndex: 0,
     goals: []
   };
 
-
+  //fetches all previously saved goals from asyncstorage and adds them to the goal state
   componentWillMount() {
     AsyncStorage.getAllKeys().then(keys =>
       AsyncStorage.multiGet(keys).then(result => {
         result.map(element =>
           this.setState({
-            goals: [...this.state.goals, ...[[element[0], element[1]]]], //using E6 spread syntax
+            goals: [...this.state.goals, ...[[element[0], element[1]]]] //using E6 spread syntax
           })
         );
       })
     );
+    //checks if a back navigation is made from newgoalscreen to goalscreen
+    this.props.navigation.addListener("willFocus", playload => {
+      if (playload.action.type === "Navigation/BACK") {
+        this.setSavedGoalToState();
+      }
+    });
   }
+
+  //fetches last saved goal and adds it to the goal state
+  setSavedGoalToState = () => {
+    AsyncStorage.getAllKeys().then(keys =>
+      AsyncStorage.getItem([...keys].pop()).then(element => {
+        this.setState(
+          {
+            goals: [...this.state.goals, ...[JSON.parse(element)]]
+          },
+          () => console.log(this.state.goals)
+        );
+      })
+    );
+  };
 
   FlatListItemSeparator = () => {
     return (
@@ -41,14 +61,14 @@ export default class GoalsScreen extends React.Component {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#607D8B",
+          backgroundColor: "#607D8B"
         }}
       />
     );
   }; //muligens ikke ;
 
   render() {
-    console.log(this.state.goals)
+    console.log(this.state.goals);
     return (
       <View style={styles.container}>
         <ScrollView style={styles.goalsContainer}>
@@ -69,21 +89,23 @@ export default class GoalsScreen extends React.Component {
           </View>
           <View style={styles.wrapperContainer}>
             <FlatList
-              style = {styles.goalswrapperContainer}
+              style={styles.goalswrapperContainer}
               data={this.state.goals}
-              keyExtractor = {data => data[0]}
-              ItemSeparatorComponent = {this.FlatListItemSeparator}
-              renderItem={({item}) => (
-
+              keyExtractor={data => data[0]}
+              ItemSeparatorComponent={this.FlatListItemSeparator}
+              renderItem={({ item }) => (
                 <Goal
-                  index = {item[0]}
-                  name = {item[1]}
-                  text = {item[2]}
-                  date = {item[3]}/>
-              )}>
-            </FlatList>
+                  index={item[0]}
+                  name={item[1]}
+                  text={item[2]}
+                  date={item[3]}
+                />
+              )}
+            />
             <View style={styles.addContainer}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('NewGoal')}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("NewGoal")}
+              >
                 <Text style={styles.addText}>Add new goal</Text>
               </TouchableOpacity>
             </View>

@@ -9,6 +9,7 @@ import {
   Alert
 } from "react-native";
 import { storeData } from "../asyncstorage";
+import { Icon } from "expo";
 
 export default class NewGoalScreen extends React.Component {
   static navigationOptions = {
@@ -80,13 +81,20 @@ export default class NewGoalScreen extends React.Component {
           <View
             style={{
               flex: 1,
-              flexDirection: "column",
+              flexDirection: "row",
               paddingBottom: 10,
               paddingTop: 15
             }}
           >
-            <Text style={styles.header}>Create a new goal</Text>
-            <TextInput //Input field for name (short description) of goal
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>New goal</Text>
+            <Icon.Ionicons
+              name="ios-add-circle-outline"
+              size={25}
+              style={{ marginLeft: 10, marginTop: 0 }}
+            />
+          </View>
+          <View styles={styles.addContainer}>
+            <TextInput //input field for name (short description) of goal
               style={styles.inputField}
               placeholder={"Name of goal"}
               maxLength={50}
@@ -96,7 +104,9 @@ export default class NewGoalScreen extends React.Component {
                 this.textInput = input;
               }}
             />
-            <TextInput //Input field for (long) description of goal
+          </View>
+          <View styles={styles.addContainer}>
+            <TextInput //input field for (long) description of goal
               style={styles.inputField}
               placeholder={"Description of goal"}
               maxLength={200}
@@ -106,10 +116,10 @@ export default class NewGoalScreen extends React.Component {
                 this.textInput = input;
               }}
             />
-            <TouchableOpacity onPress={() => this.handleOkPress()}>
-              <Text style={styles.addText}>Add new goal</Text>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity onPress={() => this.handleOkPress()}>
+            <Text style={styles.addText}>Add new goal</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     );
@@ -117,10 +127,6 @@ export default class NewGoalScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    fontSize: 20
-  },
   container: {
     flex: 1,
     paddingTop: 15,
@@ -130,32 +136,8 @@ const styles = StyleSheet.create({
   goalsContainer: {
     marginHorizontal: 40
   },
-  wrapperContainer: {
-    flex: 1,
-    flexDirection: "column"
-  },
-  goalswrapperContainer: {
-    flex: 1,
-    flexDirection: "column"
-  },
-  goalText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    lineHeight: 24
-  },
-  singleGoalContainer: {
-    borderRadius: 7,
-    borderWidth: 0.5,
-    borderColor: "#d6d7da",
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: "#E9F7FD",
-    overflow: "hidden"
-  },
   addContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between"
+    marginBottom: 20
   },
   inputField: {
     borderRadius: 7,
@@ -168,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   addText: {
-    fontSize: 22,
+    fontSize: 17,
     color: "white",
     lineHeight: 24,
     backgroundColor: "rgb(76, 217, 100)",

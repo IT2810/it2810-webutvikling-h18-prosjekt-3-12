@@ -47,28 +47,19 @@ export default class GoalsScreen extends React.Component {
       AsyncStorage.getItem([...keys].pop()).then(element => {
         this.setState(
           {
-            goals: [...this.state.goals, ...[JSON.parse(element)]]
+            goals: [
+              ...this.state.goals,
+              ...[[String([...keys].pop()), String(element)]]
+            ]
           },
-          () => console.log(this.state.goals)
+          () => console.log("Set saved goal to state:", this.state.goals)
         );
       })
     );
   };
 
-  FlatListItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "#607D8B"
-        }}
-      />
-    );
-  }; //muligens ikke ;
-
   render() {
-    console.log(this.state.goals);
+    console.log("Goals in async:", this.state.goals);
     return (
       <View style={styles.container}>
         <ScrollView style={styles.goalsContainer}>
@@ -89,16 +80,14 @@ export default class GoalsScreen extends React.Component {
           </View>
           <View style={styles.wrapperContainer}>
             <FlatList
-              style={styles.goalswrapperContainer}
               data={this.state.goals}
               keyExtractor={data => data[0]}
-              ItemSeparatorComponent={this.FlatListItemSeparator}
               renderItem={({ item }) => (
                 <Goal
-                  index={item[0]}
-                  name={item[1]}
-                  text={item[2]}
-                  date={item[3]}
+                  asyncKey={item[0]}
+                  name={JSON.parse(item[1])[0]}
+                  desc={JSON.parse(item[1])[1]}
+                  date={JSON.parse(item[1])[2]}
                 />
               )}
             />
@@ -106,7 +95,7 @@ export default class GoalsScreen extends React.Component {
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate("NewGoal")}
               >
-                <Text style={styles.addText}>Add new goal</Text>
+                <Text style={styles.addText}>Add new goal +</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -127,10 +116,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 40
   },
   wrapperContainer: {
-    flex: 1,
-    flexDirection: "column"
-  },
-  goalswrapperContainer: {
     flex: 1,
     flexDirection: "column"
   },
@@ -164,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   addText: {
-    fontSize: 22,
+    fontSize: 17,
     color: "white",
     lineHeight: 24,
     backgroundColor: "rgb(76, 217, 100)",

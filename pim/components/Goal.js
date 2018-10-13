@@ -11,7 +11,6 @@ class Goal extends React.Component {
       desc: this.props.desc,
       date: this.props.date
     };
-    console.log("Goal state:", this.state);
   }
 
   //DEPRECATED, REPLACE

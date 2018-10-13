@@ -19,27 +19,46 @@ export default class GoalsScreen extends React.Component {
   };
   state = {
     currentIndex: 0,
-    goals: []
+    goals: [],
+    numGoals: 0
   };
 
   //fetches all previously saved goals from asyncstorage and adds them to the goal state
   componentWillMount() {
-    AsyncStorage.getAllKeys().then(keys =>
-      AsyncStorage.multiGet(keys).then(result => {
-        result.map(element =>
-          this.setState({
-            goals: [...this.state.goals, ...[[element[0], element[1]]]] //using E6 spread syntax
-          })
-        );
-      })
+    AsyncStorage.clear();
+    AsyncStorage.getAllKeys().then(
+      keys =>
+        this.setState({
+          numGoals: keys.length
+        }),
+      () =>
+        AsyncStorage.multiGet(keys).then(result => {
+          result.map(element =>
+            this.setState({
+              goals: [...this.state.goals, ...[[element[0], element[1]]]] //using E6 spread syntax
+            })
+          );
+        })
     );
     //checks if a back navigation is made from newgoalscreen to goalscreen
     this.props.navigation.addListener("willFocus", playload => {
       if (playload.action.type === "Navigation/BACK") {
-        this.setSavedGoalToState();
+        AsyncStorage.getAllKeys().then(keys =>
+          this.handleBackNavigation(keys.length)
+        );
       }
     });
   }
+
+  //backnavigation is made, then checks if new goal is made => if so updates states
+  handleBackNavigation = newNumGoals => {
+    if (newNumGoals !== this.state.numGoals) {
+      this.setSavedGoalToState();
+      this.setState({
+        numGoals: newNumGoals
+      });
+    }
+  };
 
   //fetches last saved goal and adds it to the goal state
   setSavedGoalToState = () => {
@@ -59,7 +78,6 @@ export default class GoalsScreen extends React.Component {
   };
 
   render() {
-    console.log("Goals in async:", this.state.goals);
     return (
       <View style={styles.container}>
         <ScrollView style={styles.goalsContainer}>

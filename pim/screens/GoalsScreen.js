@@ -25,7 +25,6 @@ export default class GoalsScreen extends React.Component {
 
   //fetches all previously saved goals from asyncstorage and adds them to the goal state
   componentWillMount() {
-    AsyncStorage.clear();
     AsyncStorage.getAllKeys().then(
       keys =>
         this.setState({

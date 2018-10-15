@@ -204,8 +204,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     color: "rgba(96,100,109, 1)",
     lineHeight: 24,
-    paddingLeft: 7,
-    paddingTop: 5
+    paddingLeft: 7
   },
   modalTextDate: {
     fontSize: 12,

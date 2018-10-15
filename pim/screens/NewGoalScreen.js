@@ -97,7 +97,7 @@ export default class NewGoalScreen extends React.Component {
             <TextInput //input field for name (short description) of goal
               style={styles.inputField}
               placeholder={"Name of goal"}
-              maxLength={50}
+              maxLength={30}
               onChangeText={value => this.setState({ inputName: value })}
               clearButtonMode="always"
               ref={input => {
@@ -109,7 +109,7 @@ export default class NewGoalScreen extends React.Component {
             <TextInput //input field for (long) description of goal
               style={styles.inputField}
               placeholder={"Description of goal"}
-              maxLength={200}
+              maxLength={100}
               onChangeText={value => this.setState({ inputDescription: value })}
               clearButtonMode="always"
               ref={input => {

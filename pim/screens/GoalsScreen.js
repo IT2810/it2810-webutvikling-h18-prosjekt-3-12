@@ -25,19 +25,20 @@ export default class GoalsScreen extends React.Component {
 
   //fetches all previously saved goals from asyncstorage and adds them to the goal state
   componentWillMount() {
-    AsyncStorage.getAllKeys().then(
-      keys =>
-        this.setState({
-          numGoals: keys.length
-        }),
-      () =>
-        AsyncStorage.multiGet(keys).then(result => {
-          result.map(element =>
-            this.setState({
-              goals: [...this.state.goals, ...[[element[0], element[1]]]] //using E6 spread syntax
-            })
-          );
-        })
+    AsyncStorage.getAllKeys().then(keys =>
+      AsyncStorage.multiGet(keys).then(result => {
+        result.map(element =>
+          this.setState({
+            goals: [...this.state.goals, ...[[element[0], element[1]]]] //using E6 spread syntax
+          })
+        );
+      })
+    );
+    //get the number of goals saved to async on app start
+    AsyncStorage.getAllKeys().then(keys =>
+      this.setState({
+        numGoals: keys.length
+      })
     );
     //checks if a back navigation is made from newgoalscreen to goalscreen
     this.props.navigation.addListener("willFocus", playload => {

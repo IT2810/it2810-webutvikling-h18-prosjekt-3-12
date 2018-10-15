@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Icon } from "expo";
+import Modal from "react-native-modal";
 
 class Goal extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Goal extends React.Component {
       asyncKey: this.props.asyncKey,
       name: this.props.name,
       desc: this.props.desc,
-      date: this.props.date
+      date: this.props.date,
+      isModalVisible: false
     };
   }
 
@@ -36,6 +38,10 @@ class Goal extends React.Component {
     }
     return this.state.desc;
   };
+
+  //toogles the modal for the goal on/off
+  toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
 
   render() {
     return (

@@ -13,7 +13,7 @@ import { Icon } from "expo";
 
 export default class NewGoalScreen extends React.Component {
   static navigationOptions = {
-    title: "NewGoal"
+    title: "New Goal"
   };
   state = {
     inputName: "",
@@ -37,8 +37,8 @@ export default class NewGoalScreen extends React.Component {
     return formatedDate;
   };
 
-  handleOkPress = () => {
-    //Check if input is not empty -> addGoal
+  //checks if input is empty, if so propmts user with alert message; else updates state and calls addGoal()
+  handleAddGoalPress = () => {
     if (this.state.inputName === "") {
       Alert.alert(
         "Warning",
@@ -67,7 +67,7 @@ export default class NewGoalScreen extends React.Component {
     }
   };
 
-  // stores the inputvalue to asyncstorage and clears the textinput
+  //stores the inputvalue to asyncstorage and clears the textinput
   addGoal = () => {
     const key = this.createUniqueStoreKey();
     storeData(key, this.state.inputValue);
@@ -94,32 +94,38 @@ export default class NewGoalScreen extends React.Component {
             />
           </View>
           <View styles={styles.addContainer}>
-            <TextInput //input field for name (short description) of goal
-              style={styles.inputField}
-              placeholder={"Name of goal"}
-              maxLength={30}
-              onChangeText={value => this.setState({ inputName: value })}
-              clearButtonMode="always"
-              ref={input => {
-                this.textInput = input;
-              }}
-            />
+            <View style={styles.inputFieldContainer}>
+              <TextInput //input field for name (short description) of goal
+                style={styles.inputFieldName}
+                placeholder={"Name of goal"}
+                maxLength={30}
+                onChangeText={value => this.setState({ inputName: value })}
+                clearButtonMode="always"
+                ref={input => {
+                  this.textInput = input;
+                }}
+              />
+            </View>
+            <View style={styles.inputFieldContainer}>
+              <TextInput //input field for (long) description of goal
+                style={styles.inputFieldDesc}
+                placeholder={"Description of goal"}
+                maxLength={100}
+                onChangeText={value =>
+                  this.setState({ inputDescription: value })
+                }
+                clearButtonMode="always"
+                ref={input => {
+                  this.textInput = input;
+                }}
+              />
+            </View>
+            <View style={styles.addTextWrapper}>
+              <TouchableOpacity onPress={() => this.handleAddGoalPress()}>
+                <Text style={styles.addText}>Add</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View styles={styles.addContainer}>
-            <TextInput //input field for (long) description of goal
-              style={styles.inputField}
-              placeholder={"Description of goal"}
-              maxLength={100}
-              onChangeText={value => this.setState({ inputDescription: value })}
-              clearButtonMode="always"
-              ref={input => {
-                this.textInput = input;
-              }}
-            />
-          </View>
-          <TouchableOpacity onPress={() => this.handleOkPress()}>
-            <Text style={styles.addText}>Add new goal</Text>
-          </TouchableOpacity>
         </ScrollView>
       </View>
     );
@@ -137,17 +143,32 @@ const styles = StyleSheet.create({
     marginHorizontal: 40
   },
   addContainer: {
-    marginBottom: 20
+    flex: 1,
+    flexDirection: "column"
   },
-  inputField: {
+  inputFieldContainer: {
+    marginBottom: 10
+  },
+  inputFieldName: {
     borderRadius: 7,
     borderWidth: 0.5,
     borderColor: "#d6d7da",
     height: 40,
-    width: "85%",
+    width: "100%",
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 16
+  },
+  inputFieldDesc: {
+    borderRadius: 7,
+    borderWidth: 0.5,
+    borderColor: "#d6d7da",
+    height: 100,
+    width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 16,
+    paddingBottom: 60
   },
   addText: {
     fontSize: 17,
@@ -159,5 +180,8 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingLeft: 10,
     paddingRight: 10
+  },
+  addTextWrapper: {
+    width: "20%"
   }
 });

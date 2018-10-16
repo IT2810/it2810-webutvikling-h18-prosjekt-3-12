@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  TextInput,
   Button,
   RefreshControl
 } from "react-native";
-import { MonoText } from "../components/StyledText";
+import Progressbar from "../components/Progressbar";
 import { Pedometer, Icon } from "expo";
 
 export default class HomeScreen extends React.Component {
@@ -22,7 +23,8 @@ export default class HomeScreen extends React.Component {
     isPedometerAvailable: "checking",
     pastStepCount: 0,
     currentStepCount: 0,
-    refreshing: false
+    refreshing: false,
+    stepsToAchive: 0
   };
 
   componentDidMount() {
@@ -86,7 +88,7 @@ export default class HomeScreen extends React.Component {
   handleInfoIconPress = () => {
     Alert.alert(
       "Steps Information",
-      "- Walk with the phone and watch this number increase. \n\n- Drag the screen down to refresh the data.",
+      "Walk with the phone and watch this number increase.",
       [{ text: "OK" }],
       { cancelable: false }
     );
@@ -119,6 +121,12 @@ export default class HomeScreen extends React.Component {
       ],
       { cancelable: false }
     );
+  };
+
+  //sets the number of steps to state
+  handleStepsPerDay = value => {
+    let num = parseInt(String(value)); //avoids numbers beginning vith 0, eg. 02000 => 2000
+    this.setState({ stepsToAchive: num });
   };
 
   //TODO: move inline css to styles
@@ -192,6 +200,39 @@ export default class HomeScreen extends React.Component {
                 <Text style={styles.resetText}>Reset data</Text>
               </TouchableOpacity>
             </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                paddingBottom: 10,
+                paddingTop: 15
+              }}
+            >
+              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                Step goal
+              </Text>
+              <Icon.Ionicons
+                name="ios-walk-outline"
+                size={25}
+                style={{ marginLeft: 10, marginTop: 0 }}
+              />
+            </View>
+            <View style={styles.stepsGoalContainer}>
+              <Text style={styles.goalText}>
+                Number of steps to achive pr day:
+              </Text>
+              <TextInput
+                style={styles.inputFieldNumberSteps}
+                keyboardType="numeric"
+                maxLength={5}
+                onChangeText={value => this.handleStepsPerDay(value)}
+              />
+            </View>
+            <Progressbar
+              currentStepCount={this.state.currentStepCount}
+              pastStepCount={this.state.pastStepCount}
+              stepsToAchive={this.state.stepsToAchive}
+            />
           </View>
         </ScrollView>
       </View>
@@ -327,5 +368,22 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: "#2e78b7"
+  },
+  inputFieldNumberSteps: {
+    borderRadius: 7,
+    borderWidth: 0.5,
+    borderColor: "#d6d7da",
+    height: 40,
+    width: 76,
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 16,
+    marginLeft: 10,
+    marginTop: -10
+  },
+  stepsGoalContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });

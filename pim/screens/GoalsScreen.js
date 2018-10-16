@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   FlatList,
+  TextInput,
   List,
   ListItem
 } from "react-native";
@@ -20,7 +21,8 @@ export default class GoalsScreen extends React.Component {
   state = {
     currentIndex: 0,
     goals: [],
-    numGoals: 0
+    numGoals: 0,
+    stepGoal: ""
   };
 
   //fetches all previously saved goals from asyncstorage and adds them to the goal state
@@ -99,7 +101,7 @@ export default class GoalsScreen extends React.Component {
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>My goals</Text>
             <Icon.Ionicons
               name="ios-checkmark-circle-outline"
-              size={25}
+              size={22}
               style={{ marginLeft: 10, marginTop: 0 }}
             />
           </View>

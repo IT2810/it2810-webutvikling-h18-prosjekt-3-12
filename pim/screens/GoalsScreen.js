@@ -77,6 +77,13 @@ export default class GoalsScreen extends React.Component {
     );
   };
 
+  //updates the number of goals saved to async
+  handleUpdateNumGoals = num => {
+    this.setState({
+      numGoals: this.state.numGoals - num
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -106,6 +113,7 @@ export default class GoalsScreen extends React.Component {
                   name={JSON.parse(item[1])[0]}
                   desc={JSON.parse(item[1])[1]}
                   date={JSON.parse(item[1])[2]}
+                  numGoals={num => this.handleUpdateNumGoals(num)}
                 />
               )}
             />

@@ -12,22 +12,22 @@ class Goal extends React.Component {
       name: this.props.name,
       desc: this.props.desc,
       date: this.props.date,
-      isModalVisible: false
+      isModalVisible: false,
+      checked: false
     };
   }
 
   //DEPRECATED, REPLACE
-  componentWillReceiveProps(nextProps) {
-    // update original states
-    this.setState({
-      index: nextProps.index,
-      name: nextProps.name,
-      text: nextProps.text,
-      date: nextProps.date,
-      isModalVisible: false,
-      checked: false
-    });
-  }
+  //componentWillReceiveProps(nextProps) {
+  // update original states
+  //this.setState({
+  //  index: nextProps.index,
+  //  name: nextProps.name,
+  //  text: nextProps.text,
+  //  date: nextProps.date,
+  //  isModalVisible: false
+  //});
+  //}
 
   //limit the length of descritpion to 20 character. For more the user can press info to view full desc
   limitDesc = () => {
@@ -46,6 +46,8 @@ class Goal extends React.Component {
     if (!this.state.checked) {
       this.setState({ checked: !this.state.checked });
       this.removeItemValue(this.state.asyncKey);
+      this.toggleModal();
+      this.refCallback();
     }
   };
 
@@ -58,20 +60,29 @@ class Goal extends React.Component {
     }
   }
 
+  //callback to Goal.js with update for removed item
+  refCallback = element => {
+    this.props.numGoals(-1);
+  };
+
   render() {
     return (
       <View>
         <TouchableOpacity onPress={this.toggleModal}>
-          <View style={styles.singleGoalContainer}>
+          <View
+            style={
+              this.state.checked === true
+                ? styles.singleGoalContainerChecked
+                : styles.singleGoalContainer
+            }
+          >
             <View style={styles.goalsNameContainer}>
               <Text
-                style={{
-                  fontSize: 16,
-                  color: "black",
-                  lineHeight: 24,
-                  textDecorationLine:
-                    this.state.checked === true ? "line-through" : "none"
-                }}
+                style={
+                  this.state.checked === true
+                    ? styles.goalHeaderTextChecked
+                    : styles.goalHeaderText
+                }
               >
                 {this.state.name}
               </Text>
@@ -159,6 +170,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: "#E9F7FD",
     overflow: "hidden"
+  },
+  singleGoalContainerChecked: {
+    borderRadius: 7,
+    borderWidth: 0.5,
+    borderColor: "#d6d7da",
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: "#E9F7FD",
+    opacity: 0.4,
+    overflow: "hidden"
+  },
+  goalHeaderTextChecked: {
+    fontSize: 16,
+    color: "black",
+    lineHeight: 24,
+    textDecorationLine: "line-through"
+  },
+  goalHeaderText: {
+    fontSize: 16,
+    color: "black",
+    lineHeight: 24,
+    textDecorationLine: "none"
   },
   modal: {
     marginHorizontal: 20,

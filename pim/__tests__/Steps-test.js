@@ -8,7 +8,6 @@ describe("Steps snapshot", () => {
   it("should render steps view correctly", () => {
     const renderer = new ShallowRenderer();
     const result = renderer.render(<Steps />);
-    console.log(result);
     expect(result).toMatchSnapshot();
   });
 

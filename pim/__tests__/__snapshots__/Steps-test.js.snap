@@ -1,6 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Matches snapshot 1`] = `
+exports[`Steps snapshot should render outer most view in steps view correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+/>
+`;
+
+exports[`Steps snapshot should render steps view correctly 1`] = `
 <Component
   style={
     Object {
@@ -161,7 +172,7 @@ exports[`Matches snapshot 1`] = `
             }
           }
         >
-          Oct 17, 14:46
+          Oct 17, 14:50
         </Text>
       </Component>
       <Component
@@ -208,7 +219,7 @@ exports[`Matches snapshot 1`] = `
             }
           }
         >
-          Oct 17, 14:46
+          Oct 17, 14:50
         </Text>
       </Component>
       <Component
@@ -248,15 +259,4 @@ exports[`Matches snapshot 1`] = `
     </Component>
   </ScrollViewMock>
 </Component>
-`;
-
-exports[`Steps snapshot should render steps view correctly 1`] = `
-<View
-  style={
-    Object {
-      "backgroundColor": "#fff",
-      "flex": 1,
-    }
-  }
-/>
 `;

@@ -23,9 +23,7 @@ export default class NewGoalScreen extends React.Component {
 
   //create a unique key for element to be stored in the asyncstorage
   createUniqueStoreKey = () => {
-    return String(
-      (((1 + Math.random()) * 0x1000000) | 0).toString(16).substring(-1)
-    );
+    return String(new Date().getTime());
   };
 
   //return the formated the Date() object to => "Oct 01, 20:11"

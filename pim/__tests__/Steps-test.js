@@ -14,7 +14,6 @@ describe("Steps snapshot", () => {
   it("should render outer most view in steps view correctly", () => {
     //tests a snapshot view
     const tree = renderer.create(<Steps />).toJSON();
-    console.log(tree);
     expect(tree).toMatchSnapshot();
   });
 });

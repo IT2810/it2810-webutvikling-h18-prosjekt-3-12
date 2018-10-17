@@ -30,7 +30,7 @@ HomeStack.navigationOptions = {
 };
 
 const GoalsStack = createStackNavigator({
-    Links: GoalsScreen,
+    Goals: GoalsScreen,
     NewGoal: NewGoalScreen
 });
 
@@ -50,7 +50,7 @@ GoalsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
     HomeStack,
-    LinksStack: GoalsStack,
+    GoalsStack,
 });
 
 

@@ -21,6 +21,8 @@
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-modal": "^6.5.0",
+    "react-native-uuid": "^1.4.9",
+    "react-native-uuid-generator": "^4.0.1",
     "react-navigation": "^2.16.0"
   },
   "devDependencies": {

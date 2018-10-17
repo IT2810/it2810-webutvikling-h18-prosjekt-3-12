@@ -53,22 +53,24 @@ export default class GoalsScreen extends React.Component {
   //backnavigation is made, then checks if new goal is made => if so updates states
   handleBackNavigation = newNumGoals => {
     if (newNumGoals !== this.state.numGoals) {
-      this.setSavedGoalToState();
       this.setState({
         numGoals: newNumGoals
       });
+      if (this.state.numGoals !== 0) {
+        this.setSavedGoalToState();
+      }
     }
   };
 
   //fetches last saved goal and adds it to the goal state
   setSavedGoalToState = () => {
     AsyncStorage.getAllKeys().then(keys =>
-      AsyncStorage.getItem([...keys].pop()).then(element => {
+      AsyncStorage.getItem([...keys].sort().pop()).then(element => {
         this.setState(
           {
             goals: [
               ...this.state.goals,
-              ...[[String([...keys].pop()), String(element)]]
+              ...[[String([...keys].sort().pop()), String(element)]]
             ]
           },
           () => console.log("Set saved goal to state:", this.state.goals)
@@ -106,7 +108,7 @@ export default class GoalsScreen extends React.Component {
           <View style={styles.wrapperContainer}>
             <FlatList
               data={this.state.goals}
-              keyExtractor={data => data[0]}
+              keyExtractor={item => item[0]}
               renderItem={({ item }) => (
                 <Goal
                   asyncKey={item[0]}

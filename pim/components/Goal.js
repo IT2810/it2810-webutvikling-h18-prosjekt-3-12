@@ -65,6 +65,7 @@ class Goal extends React.Component {
     this.props.numGoals(-1);
   };
 
+
   render() {
     return (
       <View>

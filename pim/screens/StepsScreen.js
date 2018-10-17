@@ -86,7 +86,7 @@ export default class HomeScreen extends React.Component {
   handleInfoIconPress = () => {
     Alert.alert(
       "Steps Information",
-      "- Walk with the phone and watch this number increase. \n\n- Drag the screen down to refresh the data.",
+      "- Walk with the phone and watch this number increase.",
       [{ text: "OK" }],
       { cancelable: false }
     );

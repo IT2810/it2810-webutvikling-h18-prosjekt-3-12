@@ -5,13 +5,18 @@ import renderer from 'react-test-renderer';
 
 jest.useFakeTimers();
   beforeEach(() => {
-    NavigationTestUtils.resetInternalState();
+
   });
 
 
 describe("Goal snapshot", () => {
     it('It should render Goal component correctly', () => {
-        const tree = renderer.create(<Goal />).toJSON();
+        const tree = renderer.create(<Goal
+            asyncKey={"1"}
+            name={"2"}
+            desc={"3"}
+            date={"4"}
+            numGoals={5}/>).toJSON();
         expect(tree).toMatchSnapshot();
     });
 });

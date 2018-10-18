@@ -1,0 +1,377 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Steps snapshot should render outer most view in steps view correctly 1`] = `
+<View
+  enabled={true}
+  keyboardVerticalOffset={0}
+  onLayout={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+      },
+      Object {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`Steps snapshot should render steps view correctly 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  enabled={true}
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <Component
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+      }
+    }
+  >
+    <ScrollViewMock
+      contentContainerStyle={
+        Object {
+          "paddingTop": 30,
+        }
+      }
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "flex": 1,
+        }
+      }
+    >
+      <Component
+        style={
+          Object {
+            "marginHorizontal": 40,
+          }
+        }
+      >
+        <Component
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 20,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Activity
+          </Text>
+          <Icon
+            allowFontScaling={false}
+            name="ios-walk"
+            size={30}
+            style={
+              Object {
+                "marginLeft": 10,
+                "marginTop": -4,
+              }
+            }
+          />
+        </Component>
+        <Component
+          style={
+            Object {
+              "backgroundColor": "#E9F7FD",
+              "borderColor": "#d6d7da",
+              "borderRadius": 7,
+              "borderWidth": 0.5,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginBottom": 15,
+              "overflow": "hidden",
+              "padding": 20,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "rgba(96,100,109, 1)",
+                "fontSize": 17,
+                "lineHeight": 24,
+              }
+            }
+          >
+            Current steps: 
+            0
+             steps
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "marginTop": 5,
+              }
+            }
+          >
+            <Icon
+              allowFontScaling={false}
+              name="ios-information-circle-outline"
+              size={16}
+              style={
+                Object {
+                  "color": "rgba(96,100,109, 1)",
+                }
+              }
+            />
+          </TouchableOpacity>
+        </Component>
+        <Component
+          style={
+            Object {
+              "backgroundColor": "#E9F7FD",
+              "borderColor": "#d6d7da",
+              "borderRadius": 7,
+              "borderWidth": 0.5,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginBottom": 15,
+              "overflow": "hidden",
+              "padding": 20,
+              "paddingBottom": 0,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "rgba(96,100,109, 1)",
+                "fontSize": 17,
+                "lineHeight": 24,
+              }
+            }
+          >
+            Past day: 
+            0
+             steps
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "rgba(96,100,109, 1)",
+                "fontSize": 11,
+                "marginVertical": 15,
+              }
+            }
+          >
+            Oct 18, 21:53
+          </Text>
+        </Component>
+        <Component
+          style={
+            Object {
+              "backgroundColor": "#E9F7FD",
+              "borderColor": "#d6d7da",
+              "borderRadius": 7,
+              "borderWidth": 0.5,
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginBottom": 15,
+              "overflow": "hidden",
+              "padding": 20,
+              "paddingBottom": 0,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "rgba(96,100,109, 1)",
+                "fontSize": 17,
+                "lineHeight": 24,
+              }
+            }
+          >
+            Distance: 
+            0 m
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "rgba(96,100,109, 1)",
+                "fontSize": 11,
+                "marginVertical": 15,
+              }
+            }
+          >
+            Oct 18, 21:53
+          </Text>
+        </Component>
+        <Component
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-end",
+              "marginTop": 0,
+            }
+          }
+        >
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "backgroundColor": "#ff837c",
+                  "borderRadius": 7,
+                  "color": "white",
+                  "fontSize": 12,
+                  "lineHeight": 24,
+                  "overflow": "hidden",
+                  "padding": 5,
+                }
+              }
+            >
+              Reset data
+            </Text>
+          </TouchableOpacity>
+        </Component>
+        <Component
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingTop": 40,
+            }
+          }
+        >
+          <Component
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Achivement
+            </Text>
+            <Icon
+              allowFontScaling={false}
+              name="ios-medal"
+              size={20}
+              style={
+                Object {
+                  "marginLeft": 10,
+                  "marginTop": 2,
+                }
+              }
+            />
+          </Component>
+          <Component
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+            >
+              Number of steps to achive pr day:
+            </Text>
+            <TextInput
+              allowFontScaling={true}
+              keyboardType="numeric"
+              maxLength={5}
+              onChangeText={[Function]}
+              style={
+                Object {
+                  "borderColor": "#d6d7da",
+                  "borderRadius": 7,
+                  "borderWidth": 0.5,
+                  "fontSize": 16,
+                  "height": 40,
+                  "marginLeft": 10,
+                  "marginTop": -10,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                  "width": 76,
+                }
+              }
+            />
+          </Component>
+          <Progressbar
+            currentStepCount={0}
+            pastStepCount={0}
+            stepsToAchive={0}
+          />
+        </Component>
+      </Component>
+    </ScrollViewMock>
+  </Component>
+</KeyboardAvoidingView>
+`;

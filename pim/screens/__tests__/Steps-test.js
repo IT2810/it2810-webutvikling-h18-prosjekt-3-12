@@ -1,6 +1,6 @@
 import "react-native";
 import React from "react";
-import Steps from "../screens/StepsScreen";
+import Steps from "../StepsScreen";
 import renderer from "react-test-renderer";
 import ShallowRenderer from "react-test-renderer/shallow";
 import Alert from "Alert";

@@ -1,13 +1,13 @@
 # it2810-webutvikling-h18-prosjekt-3-gruppe--12
 it2810-webutvikling-h18-prosjekt-3-gruppe--12 created by GitHub Classroom
+
 <br>
 <img src="http://folk.ntnu.no/simenul/image.jpg" width="600" height="420" >
 <br>
 Bruk Expo appen og naviger til prosjektet [Expo.io](https://expo.io/@ulvestad/pim). Scann QR-koden for å åpne prosjektet.
 <br>
-Eventuelt: Clone prosjektet. Kjør `npm start` og bruk Expo app. 
+Eventuelt: Clone prosjektet. Kjør `npm start` og bruk Expo app.
 <br>
-
 
 ## Requirements to Content and Functionality
 
@@ -21,9 +21,9 @@ The application consists of two screens: A Stepscreen and a Goalscreen. The user
 
 The application uses a pedometer module to assess how many steps the user has taken over a given time period.
 
-The screen displays a counter for steps taken during the current session, the past day (24 hours) and the distance travelled, relating to the number of steps taken the past day.
+The screen displays a counter for steps taken during the current session, the past day (24 hours) and the distance travelled, relating to the number of steps taken the past day. At the bottom-right part of the step counters, there is a red reset button for resetting the stored data.
 
-At the bottom-right part of the screen, there is a red reset button for resetting the stored data.
+There is a progressbar at the bottom of the screen, where the user can type in a desired goal (a number of steps to reach) and the progressbar will display how close they are to their goal, in relation to the colour of the bar (Green = Completed, Red = Not Completed)
 
 ###### Goalscreen
 
@@ -46,6 +46,8 @@ The library is used for the navigation bar (at the bottom of the application win
 ###### Components:
 
 *Goal* has been made to be it's own component, with relevant properties and render method.
+
+Our *ProgressBar* component takes use of the React-Native-Progress/Bar component. The component renders a progress bar with desired functionality, described earlier.
 
 We've chosen to use the react native *FlatList* component to iterate through a list of goals, stored in the GoalScreen screen. The FlatList component renders each goal as a list element, calling on the Goal component's render method, with the data stored locally as props.
 
@@ -73,7 +75,7 @@ The *Modal* component is used to display a goal's description, showing the full 
 
 #### Platform
 
-- The application has shows desired behaviour and content in both IOS and Android. See more in Testing part.
+- The application has shows desired behaviour and content in both IOS and Android
 
 #### Git, Coding
 
@@ -81,11 +83,25 @@ The *Modal* component is used to display a goal's description, showing the full 
 
 ## Requirements to Testing
 
+#### Jest
+
 We've used Jest to test our application, focusing on doing snapshot and unit testing of the different parts of the application (Different components, screens, nav bar). We systematically tested each part:
 
 - Snapshot testing (Both deep and shallow)
 - Unit testing, testing each function
 
-We did forever m
+Tests for each part can be found in the same folder as the part (Tests for components are found in ../Components/tests/.. )
 
+We did however meet some significant problems while doing our testing, specifically regarding the *React Native Navigation* library. The problem is connected to trying to create an instance of one of the screens and the navigation property, usually passed by the MainTabNavigator, not resolving (We looked around a bunch, finding it to be somewhat common issue, not finding a solution for our problem though).
 
+We also encountered a known issue with the pedometer module, https://forums.expo.io/t/pedometer-already-managing-a-googleapiclient-with-id-0-react-native-again/14644.
+(Rarely causes problems, but does make the application crash sometimes, often when reloading the application in expo. Relaunching works without any problems) The issue is currently active and have no clear solution.
+
+#### Platform
+
+Under the development of the application we rapidly tested using the expo application, testing the application's content and behaviour on both IOS and Android mobiles. Disregarding the differences between Android and IOS (standards for how basic components look), the content and behaviour of the application is consistent on both platforms.
+
+#### Requirments
+
+- We did use Jest to test our application.
+- We did do show and document our unit testing of the application

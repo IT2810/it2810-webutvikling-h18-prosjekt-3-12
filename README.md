@@ -1,7 +1,7 @@
 # it2810-webutvikling-h18-prosjekt-3-gruppe--12
 it2810-webutvikling-h18-prosjekt-3-gruppe--12 created by GitHub Classroom
 <br>
-<img src="http://folk.ntnu.no/simenul/image.jpg" width="600" height="400" >
+<img src="http://folk.ntnu.no/simenul/image.jpg" width="600" height="450" >
 
 
 ## Requirements to Content and Functionality

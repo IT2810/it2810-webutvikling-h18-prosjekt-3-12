@@ -5,10 +5,7 @@ import {
   View,
   TouchableOpacity,
   Text,
-  FlatList,
-  TextInput,
-  List,
-  ListItem
+  FlatList
 } from "react-native";
 import Goal from "../components/Goal";
 import { Icon } from "expo";
@@ -21,8 +18,7 @@ export default class GoalsScreen extends React.Component {
   state = {
     currentIndex: 0,
     goals: [],
-    numGoals: 0,
-    stepGoal: ""
+    numGoals: 0
   };
 
   //fetches all previously saved goals from asyncstorage and adds them to the goal state
@@ -55,22 +51,24 @@ export default class GoalsScreen extends React.Component {
   //backnavigation is made, then checks if new goal is made => if so updates states
   handleBackNavigation = newNumGoals => {
     if (newNumGoals !== this.state.numGoals) {
-      this.setSavedGoalToState();
       this.setState({
         numGoals: newNumGoals
       });
+      if (this.state.numGoals !== 0) {
+        this.setSavedGoalToState();
+      }
     }
   };
 
   //fetches last saved goal and adds it to the goal state
   setSavedGoalToState = () => {
     AsyncStorage.getAllKeys().then(keys =>
-      AsyncStorage.getItem([...keys].pop()).then(element => {
+      AsyncStorage.getItem([...keys].sort().pop()).then(element => {
         this.setState(
           {
             goals: [
               ...this.state.goals,
-              ...[[String([...keys].pop()), String(element)]]
+              ...[[String([...keys].sort().pop()), String(element)]]
             ]
           },
           () => console.log("Set saved goal to state:", this.state.goals)
@@ -101,14 +99,14 @@ export default class GoalsScreen extends React.Component {
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>My goals</Text>
             <Icon.Ionicons
               name="ios-checkmark-circle-outline"
-              size={22}
+              size={25}
               style={{ marginLeft: 10, marginTop: 0 }}
             />
           </View>
           <View style={styles.wrapperContainer}>
             <FlatList
               data={this.state.goals}
-              keyExtractor={data => data[0]}
+              keyExtractor={item => item[0]}
               renderItem={({ item }) => (
                 <Goal
                   asyncKey={item[0]}

@@ -1,6 +1,6 @@
 import "react-native";
 import React from "react";
-import MainTab from "../navigation/MainTabNavigator";
+import MainTab from "../MainTabNavigator";
 import renderer from "react-test-renderer";
 import ShallowRenderer from "react-test-renderer/shallow";
 import NavigationTestUtils from "react-navigation/NavigationTestUtils";

@@ -64,8 +64,7 @@ describe("Unit testing: tests functions", () => {
     const mockFn = jest
       .fn()
       .mockName(
-        result.props.children.props.children.props.children[1].props.children[1]
-          .props.onPress
+        result.props.children.props.children.props.children.props.children[1].props.children.onPress
       );
     expect(mockFn).toBeTruthy();
   });

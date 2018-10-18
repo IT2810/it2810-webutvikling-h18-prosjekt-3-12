@@ -32,7 +32,7 @@ describe("GoalScreen snapshot", () => {
         expect(tree).toMatchSnapshot();
     });
 });
-*/
+
 
 
 //Unit testing
@@ -56,8 +56,8 @@ describe("Unit testing: tests functions", () => {
         numGoals.toBe(2);
 
     });
-
-
-
 });
+*/
+
+
 

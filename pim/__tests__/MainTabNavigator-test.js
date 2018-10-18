@@ -5,7 +5,7 @@ import renderer from "react-test-renderer";
 import ShallowRenderer from "react-test-renderer/shallow";
 import NavigationTestUtils from "react-navigation/NavigationTestUtils";
 
-describe("Steps snapshot", () => {
+describe("MainTabNavigator snapshot", () => {
   jest.useFakeTimers();
   beforeEach(() => {
     NavigationTestUtils.resetInternalState();

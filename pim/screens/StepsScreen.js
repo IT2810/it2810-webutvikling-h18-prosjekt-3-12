@@ -1,14 +1,16 @@
 import React from "react";
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Alert
+  Alert,
+  TextInput,
+  KeyboardAvoidingView
 } from "react-native";
 import { Pedometer, Icon } from "expo";
+import Progressbar from "../components/Progressbar";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -120,80 +122,123 @@ export default class HomeScreen extends React.Component {
     );
   };
 
-  //TODO: move inline css to styles
+  //sets the number of steps to state
+  handleStepsPerDay = value => {
+    let num = parseInt(String(value)); //avoids numbers beginning vith 0, eg. 02000 => 2000
+    this.setState({ stepsToAchive: num });
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
-          <View style={styles.stepsContainer}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                paddingBottom: 10
-              }}
-            >
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>Activity</Text>
-              <Icon.Ionicons
-                name="ios-walk"
-                size={30}
-                style={{ marginLeft: 10, marginTop: -4 }}
-              />
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.infoText}>
-                Current steps: {this.state.currentStepCount} steps
-              </Text>
-              <TouchableOpacity
-                onPress={this.handleInfoIconPress}
-                style={{ marginTop: 5 }}
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <View style={styles.container}>
+          <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.contentContainer}
+          >
+            <View style={styles.stepsContainer}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  paddingBottom: 10
+                }}
               >
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Activity
+                </Text>
                 <Icon.Ionicons
-                  name="ios-information-circle-outline"
-                  size={16}
-                  style={{ color: "rgba(96,100,109, 1)" }}
+                  name="ios-walk"
+                  size={30}
+                  style={{ marginLeft: 10, marginTop: -4 }}
                 />
-              </TouchableOpacity>
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>
+                  Current steps: {this.state.currentStepCount} steps
+                </Text>
+                <TouchableOpacity
+                  onPress={this.handleInfoIconPress}
+                  style={{ marginTop: 5 }}
+                >
+                  <Icon.Ionicons
+                    name="ios-information-circle-outline"
+                    size={16}
+                    style={{ color: "rgba(96,100,109, 1)" }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.infoContainerWithDate}>
+                <Text style={styles.infoText}>
+                  Past day: {this.state.pastStepCount} steps
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    marginVertical: 15,
+                    color: "rgba(96,100,109, 1)"
+                  }}
+                >
+                  {this.formatDate()}
+                </Text>
+              </View>
+              <View style={styles.infoContainerWithDate}>
+                <Text style={styles.infoText}>
+                  Distance: {this.convertStepsToUnits()}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    marginVertical: 15,
+                    color: "rgba(96,100,109, 1)"
+                  }}
+                >
+                  {this.formatDate()}
+                </Text>
+              </View>
+              <View style={styles.resetContainer}>
+                <TouchableOpacity onPress={this.handleResetPress}>
+                  <Text style={styles.resetText}>Reset data</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.stepsGoalContainer}>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    paddingBottom: 10
+                  }}
+                >
+                  <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                    Achivement
+                  </Text>
+                  <Icon.Ionicons
+                    name="ios-medal"
+                    size={20}
+                    style={{ marginLeft: 10, marginTop: 2 }}
+                  />
+                </View>
+                <View style={styles.stepsGoalContainerText}>
+                  <Text style={styles.goalText}>
+                    Number of steps to achive pr day:
+                  </Text>
+                  <TextInput
+                    style={styles.inputFieldNumberSteps}
+                    keyboardType="numeric"
+                    maxLength={5}
+                    onChangeText={value => this.handleStepsPerDay(value)}
+                  />
+                </View>
+                <Progressbar
+                  currentStepCount={this.state.currentStepCount}
+                  pastStepCount={this.state.pastStepCount}
+                  stepsToAchive={this.state.stepsToAchive}
+                />
+              </View>
             </View>
-            <View style={styles.infoContainerWithDate}>
-              <Text style={styles.infoText}>
-                Past day: {this.state.pastStepCount} steps
-              </Text>
-              <Text
-                style={{
-                  fontSize: 11,
-                  marginVertical: 15,
-                  color: "rgba(96,100,109, 1)"
-                }}
-              >
-                {this.formatDate()}
-              </Text>
-            </View>
-            <View style={styles.infoContainerWithDate}>
-              <Text style={styles.infoText}>
-                Distance: {this.convertStepsToUnits()}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 11,
-                  marginVertical: 15,
-                  color: "rgba(96,100,109, 1)"
-                }}
-              >
-                {this.formatDate()}
-              </Text>
-            </View>
-            <View style={styles.resetContainer}>
-              <TouchableOpacity onPress={this.handleResetPress}>
-                <Text style={styles.resetText}>Reset data</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -277,7 +322,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: 10
+    marginTop: 0
   },
   resetText: {
     fontSize: 12,
@@ -288,43 +333,26 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     padding: 5
   },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
+  inputFieldNumberSteps: {
+    borderRadius: 7,
+    borderWidth: 0.5,
+    borderColor: "#d6d7da",
+    height: 40,
+    width: 76,
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 16,
+    marginLeft: 10,
+    marginTop: -10
   },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
+  stepsGoalContainer: {
+    flex: 1,
+    flexDirection: "column",
+    paddingTop: 40
   },
-  navigationFilename: {
-    marginTop: 5
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: "center"
-  },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
+  stepsGoalContainerText: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });

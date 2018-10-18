@@ -29,11 +29,12 @@ export default class Progressbar extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, width: "100%", paddingTop: 10 }}>
+      <View style={{ flex: 1, width: "100%", paddingTop: 20 }}>
         <ProgressBar
           progress={this.getProgress()}
           width={null}
-          height={10}
+          height={20}
+          borderRadius={7}
           borderColor={"#d6d7da"}
           color={this.getProgress() >= 1 ? "rgb(76, 217, 100)" : "#ff837c"}
         />

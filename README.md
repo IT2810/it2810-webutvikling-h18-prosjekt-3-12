@@ -4,7 +4,7 @@ it2810-webutvikling-h18-prosjekt-3-gruppe--12 created by GitHub Classroom
 <br>
 <img src="http://folk.ntnu.no/simenul/image.jpg" width="600" height="420" >
 <br>
-Bruk Expo appen og naviger til prosjektet [Expo.io](https://expo.io/@ulvestad/pim). Scann QR-koden for å åpne prosjektet.
+Bruk Expo appen og naviger til prosjektet [Expo.io](https://expo.io/@ulvestad/step-goal-app). Scann QR-koden for å åpne prosjektet.
 <br>
 Eventuelt: Clone prosjektet. Kjør `npm start` og bruk Expo app.
 <br>

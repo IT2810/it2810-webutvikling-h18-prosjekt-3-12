@@ -1,6 +1,6 @@
 import "react-native";
 import React from "react";
-import Goals from "../screens/GoalsScreen";
+import Goals from "../GoalsScreen";
 import renderer from "react-test-renderer";
 import ShallowRenderer from "react-test-renderer/shallow";
 import MockAsyncStorage from 'mock-async-storage';
@@ -32,7 +32,7 @@ describe("GoalScreen snapshot", () => {
         expect(tree).toMatchSnapshot();
     });
 });
-*/
+
 
 
 //Unit testing
@@ -56,8 +56,8 @@ describe("Unit testing: tests functions", () => {
         numGoals.toBe(2);
 
     });
-
-
-
 });
+*/
+
+
 

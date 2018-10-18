@@ -1,6 +1,6 @@
 import "react-native";
 import React from "react";
-import Steps from "../screens/StepsScreen";
+import Steps from "../StepsScreen";
 import renderer from "react-test-renderer";
 import ShallowRenderer from "react-test-renderer/shallow";
 import Alert from "Alert";
@@ -64,8 +64,7 @@ describe("Unit testing: tests functions", () => {
     const mockFn = jest
       .fn()
       .mockName(
-        result.props.children.props.children.props.children[1].props.children[1]
-          .props.onPress
+        result.props.children.props.children.props.children.props.children[1].props.children.onPress
       );
     expect(mockFn).toBeTruthy();
   });

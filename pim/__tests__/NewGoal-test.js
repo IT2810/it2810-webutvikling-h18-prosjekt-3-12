@@ -48,13 +48,5 @@ describe("Unit testing: tests functions", () => {
     expect(clock).toMatch(/[1-9]{2}[:]{1}[0-9]{2}/);
   });
 
-  test("adds created new goal correctly", () => {
-    const navigation = { navigate: jest.fn() };
-    const newGoalNavContainer = renderer
-      .create(<NewGoal navigation={navigation} />)
-      .getInstance();
-    //newGoalNavContainer.addGoal(); => ERROR
-    //ERORR: TypeError: _this.props.navigation.goBack is not a function
-    // => this.props.navigation.goBack();
-  });
+ 
 });

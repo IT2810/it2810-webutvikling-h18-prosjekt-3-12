@@ -71,7 +71,7 @@ The *Modal* component is used to display a goal's description, showing the full 
 
 - We've used expo-cli during the development of the application
 - The application uses AsyncStorage to store data locally.
--We've used several 3rd party react native components like Modal and React Navigation.
+- We've used several 3rd party react native components like Modal and React Navigation.
 
 #### Platform
 

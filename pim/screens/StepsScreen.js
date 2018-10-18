@@ -12,6 +12,7 @@ import {
 import { Pedometer, Icon } from "expo";
 import Progressbar from "../components/Progressbar";
 
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Steps"
@@ -40,6 +41,7 @@ export default class HomeScreen extends React.Component {
         currentStepCount: result.steps
       });
     });
+
 
     Pedometer.isAvailableAsync().then(
       result => {
@@ -107,7 +109,109 @@ export default class HomeScreen extends React.Component {
     this.setState({ currentStepCount: 0 });
     this._unsubscribe(); //reset currentStepCount subscription
     this._subscribe();
+  };import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Alert,
+  TextInput,
+  KeyboardAvoidingView
+} from "react-native";
+import { Pedometer, Icon } from "expo";
+import Progressbar from "../components/Progressbar";
+
+
+export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: "Steps"
   };
+
+  state = {
+    isPedometerAvailable: "checking",
+    pastStepCount: 0,
+    currentStepCount: 0,
+    refreshing: false,
+    stepsToAchive: 0
+  };
+
+  componentDidMount() {
+    this._subscribe();
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  //From Expo Docs: https://docs.expo.io/versions/v30.0.0/sdk/pedometer
+  _subscribe = () => {
+    this._subscription = Pedometer.watchStepCount(result => {
+      this.setState({
+        currentStepCount: result.steps
+      });
+    });
+
+
+    Pedometer.isAvailableAsync().then(
+      result => {
+        this.setState({
+          isPedometerAvailable: String(result)
+        });
+      },
+      error => {
+        this.setState({
+          isPedometerAvailable: "Could not get isPedometerAvailable: " + error
+        });
+      }
+    );
+
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 1); //24h difference
+    Pedometer.getStepCountAsync(start, end).then(
+      result => {
+        this.setState({ pastStepCount: result.steps });
+      },
+      error => {
+        this.setState({
+          pastStepCount: "Could not get stepCount: " + error
+        });
+      }
+    );
+  };
+
+  _unsubscribe = () => {
+    this._subscription && this._subscription.remove();
+    this._subscription = null;
+  };
+
+  //returns distance based on steps, either in km or meters
+  convertStepsToUnits = () => {
+    const steps = this.state.pastStepCount;
+    let distance = steps * 0.762; // 1 step = 0.768m
+    return distance / 1000 > 1
+      ? (distance / 1000).toFixed(2) + " km"
+      : distance.toFixed(0) + " m";
+  };
+
+  //popup for information about the step counter
+  handleInfoIconPress = () => {
+    Alert.alert(
+      "Steps Information",
+      "- Walk with the phone and watch this number increase.",
+      [{ text: "OK" }],
+      { cancelable: false }
+    );
+  };
+
+  //return the formated the Date() object to => "Oct 01, 20:11"
+  formatDate = () => {
+    let date = String(new Date()).split(" ");
+    const day = date[1] + " " + date[2] + ", ";
+    const hours = date[4].substring(0, 5);
+    const formatedDate = day 
 
   //handle button press and make user confirm the action
   handleResetPress = () => {

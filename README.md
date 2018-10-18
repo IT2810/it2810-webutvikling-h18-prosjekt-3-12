@@ -65,10 +65,19 @@ The *Modal* component is used to display a goal's description, showing the full 
 
 #### Platform
 
-- The application has shows desired behaviour and content in both IOS and Android
+- The application has shows desired behaviour and content in both IOS and Android. See more in Testing part.
 
 #### Git, Coding
 
 - We've used Git actively during the development,  using issues, commits (requirements to use of Git).
 
 ## Requirements to Testing
+
+We've used Jest to test our application, focusing on doing snapshot and unit testing of the different parts of the application (Different components, screens, nav bar). We systematically tested each part:
+
+- Snapshot testing (Both deep and shallow)
+- Unit testing, testing each function
+
+We did forever m
+
+

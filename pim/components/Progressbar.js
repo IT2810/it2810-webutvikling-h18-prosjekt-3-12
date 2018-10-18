@@ -15,12 +15,6 @@ export default class Progressbar extends React.Component {
     } else if (this.props.pastStepCount === 0) {
       return 1;
     }
-    /* if (this.props.stepsToAchive / this.props.pastStepCount >= 1) {
-      this.setState({
-        color: "rgb(76, 217, 100)"
-      });
-      return this.props.stepsToAchive / this.props.pastStepCount;
-    } */
     return (
       (this.props.pastStepCount + this.props.currentStepCount) /
       this.props.stepsToAchive

@@ -13,7 +13,7 @@ export default class Progressbar extends React.Component {
     if (this.props.stepsToAchive === 0 || isNaN(this.props.stepsToAchive)) {
       return 0;
     } else if (this.props.pastStepCount === 0) {
-      return 1;
+      return 0;
     }
     return (
       (this.props.pastStepCount + this.props.currentStepCount) /

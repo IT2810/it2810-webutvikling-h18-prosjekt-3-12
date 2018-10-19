@@ -95,7 +95,7 @@ Tests for each part can be found in the same folder as the part (Tests for compo
 We did however encounter some significant problems while doing our testing, specifically regarding the *React Native Navigation* library. The problem is connected to trying to create an instance of one of the screens and the navigation property, usually passed by the MainTabNavigator, not resolving (We looked around extensively, finding it to be somewhat common issue, not finding a solution for our problem though).
 
 We also encountered a known issue with the pedometer module, https://forums.expo.io/t/pedometer-already-managing-a-googleapiclient-with-id-0-react-native-again/14644.
-Rarely causes problems, but does make the application crash sometimes, often when reloading the application in expo. Relaunching works without any problems. The issue is currently marked as active at Expo's issue tracker and has no clear solution.
+Rarely causes problems, but does make the application crash sometimes when reloading the application in expo. Relaunching works without any problems. The issue is currently marked as active at Expo's issue tracker and has no clear solution. The issue is contained specifically to Android, and does not appear on iOS.
 
 #### Platform
 

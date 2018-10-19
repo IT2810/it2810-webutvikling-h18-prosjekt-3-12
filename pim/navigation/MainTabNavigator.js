@@ -1,71 +1,57 @@
 import React from "react";
-import { Platform } from "react-native";
+import {Platform} from "react-native";
 import {
-  createStackNavigator,
-  createBottomTabNavigator
+    createStackNavigator,
+    createBottomTabNavigator
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import HomeScreen from "../screens/StepsScreen";
+import GoalsScreen from "../screens/GoalsScreen";
+import NewGoalScreen from "../screens/NewGoalScreen"
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen
+    Home: HomeScreen
+
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: "Steps",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-walk${focused ? "" : "-outline"}`
-          : "md-walk"
-      }
-    />
-  )
+    tabBarLabel: "Steps",
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === "ios"
+                    ? `ios-walk${focused ? "" : "-outline"}`
+                    : "md-walk"
+            }
+        />
+    )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
+const GoalsStack = createStackNavigator({
+    Goals: GoalsScreen,
+    NewGoal: NewGoalScreen
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: "Goals",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-checkmark-circle${focused ? "" : "-outline"}`
-          : "md-checkmark"
-      }
-    />
-  )
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: "User",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-contact${focused ? "" : "-outline"}`
-          : "md-contact"
-      }
-    />
-  )
+GoalsStack.navigationOptions = {
+    tabBarLabel: "Goals",
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === "ios"
+                    ? `ios-checkmark-circle${focused ? "" : "-outline"}`
+                    : "md-checkmark"
+            }
+        />
+    )
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack
+    HomeStack,
+    GoalsStack,
 });
+
+
+
